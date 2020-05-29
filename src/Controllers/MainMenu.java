@@ -1,5 +1,7 @@
 package Controllers;
 
+import Models.Score;
+import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,18 +26,13 @@ public class MainMenu implements Initializable {
         welcomeText.setText("Wellcome " + MainController.getInstance().getUser().getUsername());
     }
 
-    private static Scene gameScene = null;
     public void startNewGame(MouseEvent mouseEvent) throws IOException {
+        MainController.getInstance().setGameScore(new Score(MainController.getInstance().getUser(),0));
         Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Game.fxml"));
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(pane, 800, 800);
-        gameScene = scene;
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static Scene getGameScene() {
-        return gameScene;
     }
 
     public void showScoreBoard(MouseEvent mouseEvent) throws IOException {

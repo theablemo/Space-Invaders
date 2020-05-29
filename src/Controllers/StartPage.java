@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +26,6 @@ public class StartPage{
 
         Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Signup.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-
         Scene scene = new Scene(pane, 800, 800);
         stage.setScene(scene);
         stage.show();
@@ -34,7 +34,6 @@ public class StartPage{
     public void gotoLogin(ActionEvent actionEvent) throws IOException {
         Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Login.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-
         Scene scene = new Scene(pane, 800, 800);
         stage.setScene(scene);
         stage.show();
