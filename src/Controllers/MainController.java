@@ -32,4 +32,8 @@ public class MainController {
         }
         setUser(sample);
     }
+    public void signout()
+    {
+        setUser(null);
+    }
 }
