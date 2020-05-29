@@ -24,18 +24,18 @@ public class StartPage{
     @FXML
     public void goToSignup(ActionEvent actionEvent) throws IOException {
 
-        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Signup.fxml"));
+//        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Signup.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(pane, 800, 800);
-        stage.setScene(scene);
+        //Scene scene = new Scene(pane, 800, 800);
+        stage.setScene(MainController.getInstance().getSignupScene());
         stage.show();
     }
 
     public void gotoLogin(ActionEvent actionEvent) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Login.fxml"));
+        //Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Login.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(pane, 800, 800);
-        stage.setScene(scene);
+       // Scene scene = new Scene(pane, 800, 800);
+        stage.setScene(MainController.getInstance().getLoginScene());
         stage.show();
     }
 }

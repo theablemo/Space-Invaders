@@ -18,5 +18,5 @@
     <Text text="Enter Password: "  x="100" y="420" styleClass="infoText"/>
     <Button text="Submit" styleClass="Buttons" layoutX="600" layoutY="500" onMouseClicked="#signupAction"/>
     <Label fx:id="errorLabel" layoutX="200" layoutY="550" styleClass="errorLabel"/>
-
+    <Button layoutX="80" layoutY="80" onMouseClicked="#goBack" text="Back" styleClass="Buttons"/>
 </Pane>

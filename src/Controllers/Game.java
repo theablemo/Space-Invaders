@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -17,10 +18,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class Game implements Initializable {
@@ -29,27 +32,36 @@ public class Game implements Initializable {
     public ArrayList<ImageView> bullets;
     public ArrayList<ImageView> enemies;
     public ArrayList<ImageView> enemyBullets;
+    public ArrayList<ImageView> toRemove;
     Score score;
     public Button toGetScene;
     public Pane pane;
     private double getDownTime = 0;
     private double shootTime = 0;
-    private KeyEvent event = null;
-    private boolean gotHit = false;
+    private KeyEvent event;
+    private boolean gotHit;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        gotHit = false;
+        event = null;
         score = MainController.getInstance().getGameScore();
         enemyBullets = new ArrayList<>();
         enemies = new ArrayList<>();
         bullets = new ArrayList<>();
+        toRemove = new ArrayList<>();
         ship.setFitWidth(90);
         ship.setFitHeight(90);
         //make enemies
         ColorAdjust colorAdjust = new ColorAdjust();
         for (int i = 0; i < 30 ; i++) {
-            colorAdjust.setHue(10);
-            colorAdjust.setContrast(-0.5);
-            colorAdjust.setSaturation(-0.2);
+            if(i%10 == 0)
+            {
+                Random random = new Random();
+                colorAdjust.setHue(random.nextInt(10));
+                colorAdjust.setContrast(random.nextInt(10));
+                colorAdjust.setSaturation(random.nextInt(10));
+                colorAdjust.setBrightness(random.nextInt(10));
+            }
             Image alien = new Image("/Images/alien.png");
             ImageView iv = new ImageView();
             iv.setImage(alien);
@@ -65,31 +77,32 @@ public class Game implements Initializable {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                update();
+                    update();
             }
         };
         timer.start();
     }
 
-    private void endGame(KeyEvent keyEvent) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/GameResult.fxml"));
-        Stage stage = (Stage)((Node)keyEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(pane, 800, 800);
-        stage.setScene(scene);
+    private void endGame() throws IOException {
+        //Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/GameResult.fxml"));
+        //Stage stage = (Stage) toGetScene.getScene().getWindow();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        //Scene scene = new Scene(pane, 800, 800);
+        stage.setScene(MainController.getInstance().getResultScene());
         stage.show();
     }
 
-    public void update()
-    {
+    public void update() {
         getDownTime += 0.016;
         shootTime += 0.016;
-        if(enemies.isEmpty() || gotHit)
+        toRemove.clear();
+        if(gotHit)
         {
-            try
-            {
+            try {
                 gotHit = false;
-                endGame(event);
-            }catch (Exception e){}
+                endGame();
+            } catch (Exception e){
+            }
         }
         //enemy reached ship
         for (ImageView enemy : enemies) {
@@ -97,20 +110,6 @@ public class Game implements Initializable {
             {
                 gotHit = true;
                 break;
-            }
-        }
-        //get the bullet
-        for (ImageView bullet : bullets) {
-            bullet.setY(bullet.getY() - 5);
-            for (ImageView enemy : enemies) {
-                if(bullet.intersects(enemy.getBoundsInParent()))
-                {
-                    score.setScore(score.getScore()+1);
-                    pane.getChildren().remove(bullet);
-                    pane.getChildren().remove(enemy);
-                    bullets.remove(bullet);
-                    enemies.remove(enemy);
-                }
             }
         }
         //shoot enemies
@@ -129,15 +128,31 @@ public class Game implements Initializable {
             enemyBullets.add(tirEnemy);
             shootTime = 0;
         }
+        //get the bullet
+        for (ImageView bullet : bullets) {
+            bullet.setY(bullet.getY() - 5);
+            for (ImageView enemy : enemies) {
+                if(bullet.intersects(enemy.getBoundsInParent()))
+                {
+                    score.setScore(score.getScore()+1);
+                    toRemove.add(bullet);
+                    toRemove.add(enemy);
+//                    pane.getChildren().remove(bullet);
+//                    pane.getChildren().remove(enemy);
+//                    bullets.remove(bullet);
+//                    enemies.remove(enemy);
+                }
+            }
+        }
         //get enemy bullets
         for (ImageView enemyBullet : enemyBullets) {
             enemyBullet.setY(enemyBullet.getY() + 5);
             if(enemyBullet.intersects(ship.getBoundsInParent()))
             {
-                pane.getChildren().remove(enemyBullet);
-                pane.getChildren().remove(ship);
-                enemyBullets.remove(enemyBullet);
                 gotHit = true;
+//                pane.getChildren().remove(enemyBullet);
+//                pane.getChildren().remove(ship);
+//                enemyBullets.remove(enemyBullet);
             }
         }
         //get down one row enemies
@@ -159,6 +174,9 @@ public class Game implements Initializable {
             }
             getDownTime = 0;
         }
+        pane.getChildren().removeAll(toRemove);
+        bullets.removeAll(toRemove);
+        enemies.removeAll(toRemove);
     }
 
     public void moveShip(KeyEvent keyEvent) {

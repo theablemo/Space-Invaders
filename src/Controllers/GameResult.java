@@ -28,7 +28,9 @@ public class GameResult implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String scoreText = "Score: " + MainController.getInstance().getGameScore().getScore();
+        String scoreText = "Score: 0";
+        if(MainController.getInstance().getGameScore() != null)
+             scoreText = "Score: " + MainController.getInstance().getGameScore().getScore();
         score.setText(scoreText);
         MainController.getInstance().setGameScore(null);
     }

@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.User;
+import com.sun.tools.javac.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -9,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Login {
     public Label errorLabel;
@@ -41,14 +44,22 @@ public class Login {
         }
         try {
             MainController.getInstance().login(usernameText,passwordText);
-            Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/MainMenu.fxml"));
+            //Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/MainMenu.fxml"));
             Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(pane, 800, 800);
-            stage.setScene(scene);
+            //Scene scene = new Scene(pane, 800, 800);
+            stage.setScene(MainController.getInstance().getMainMenuScene());
             stage.show();
         }catch (Exception e)
         {
             errorLabel.setText(e.getMessage());
         }
+    }
+
+    public void goBack(MouseEvent mouseEvent) throws IOException {
+        //Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/StartPage.fxml"));
+        Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+        //Scene scene = new Scene(pane, 800, 800);
+        stage.setScene(MainController.getInstance().getStartScene());
+        stage.show();
     }
 }

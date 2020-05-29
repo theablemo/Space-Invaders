@@ -44,10 +44,10 @@ public class MainMenu implements Initializable {
     }
 
     public void signout(MouseEvent mouseEvent) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Startpage.fxml"));
+        //Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Startpage.fxml"));
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(pane, 800, 800);
-        stage.setScene(scene);
+        //Scene scene = new Scene(pane, 800, 800);
+        stage.setScene(MainController.getInstance().getStartScene());
         stage.show();
     }
 }
