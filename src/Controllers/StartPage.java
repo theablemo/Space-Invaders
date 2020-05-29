@@ -31,7 +31,12 @@ public class StartPage{
         stage.show();
     }
 
-    public void gotoLogin(ActionEvent actionEvent) {
+    public void gotoLogin(ActionEvent actionEvent) throws IOException {
+        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Login.fxml"));
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 
+        Scene scene = new Scene(pane, 800, 800);
+        stage.setScene(scene);
+        stage.show();
     }
 }

@@ -9,14 +9,14 @@
 <?import javafx.scene.text.Text?>
 <Pane xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="Controllers.SignupPage"
+      fx:controller="Controllers.Login"
       prefHeight="800" prefWidth="800" stylesheets="@Style.css" styleClass="backgroundImage">
-    <Label text="Signup" layoutX="350" layoutY="150" styleClass="labelInfo"/>
+    <Label text="Login" layoutX="350" layoutY="150" styleClass="labelInfo"/>
     <TextField promptText="Username" layoutX="375" layoutY="300" styleClass="TextFileds" fx:id="username"/>
     <TextField promptText="Password" layoutX="375" layoutY="400" styleClass="TextFileds" fx:id="password"/>
     <Text text="Enter Username: "  x="100" y="320" styleClass="infoText"/>
-    <Text text="Enter Password: "  x="100" y="420" styleClass="infoText"/>
-    <Button text="Submit" styleClass="Buttons" layoutX="600" layoutY="500" onMouseClicked="#signupAction"/>
-    <Label fx:id="errorLabel" layoutX="200" layoutY="550" styleClass="errorLabel"/>
+    <Text text="Enter Password: " x="100" y="420" styleClass="infoText"/>
+    <Button text="Submit" styleClass="Buttons" layoutX="600" layoutY="500" onMouseClicked="#loginAction"/>
+    <Label fx:id="errorLabel" layoutX="200" layoutY="500" styleClass="errorLabel"/>
 
 </Pane>

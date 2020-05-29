@@ -23,4 +23,13 @@ public class MainController {
     {
         setUser(new User(username,password));
     }
+    public void login(String username,String password) throws Exception
+    {
+        User sample = User.getAllUsers().get(username);
+        if(!sample.getPassword().equals(password))
+        {
+            throw new Exception("Password is incorrect.");
+        }
+        setUser(sample);
+    }
 }
