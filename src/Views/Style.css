@@ -1,0 +1,31 @@
+.Buttons{
+    -fx-font-size: 25;
+    -fx-text-fill: #0F6635;
+    -fx-background-color: none;
+}
+.Buttons:hover{
+    -fx-background-color: GREY;
+}
+.MainButtons{
+    -fx-text-fill: #0F6635;
+    -fx-background-color: none;
+    -fx-font-size: 50;
+}
+.MainButtons:hover{
+    -fx-background-color: GREY;
+}
+.backgroundImage{
+    -fx-background-image: url("/Images/background.png");
+}
+.TextFileds{
+    -fx-prompt-text-fill: #0F6635;
+    -fx-background-size: 100;
+}
+.infoText{
+    -fx-fill: #0F6635;
+    -fx-font-size: 25;
+}
+.labelInfo{
+    -fx-text-fill: #0F6635;
+    -fx-font-size: 30;
+}

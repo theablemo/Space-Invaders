@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.SignupPage"
+      prefHeight="800" prefWidth="800" stylesheets="@Style.css" styleClass="backgroundImage">
+    <TextField promptText="Username" layoutX="375" layoutY="300" styleClass="TextFileds" fx:id="username"/>
+    <TextField promptText="Password" layoutX="375" layoutY="400" styleClass="TextFileds" fx:id="password"/>
+    <Text text="Enter Username: "  x="100" y="320" styleClass="infoText"/>
+    <Text text="Enter Password: "  x="100" y="420" styleClass="infoText"/>
+    <Button text="Submit" styleClass="Buttons" layoutX="600" layoutY="500" onMouseClicked="#signupAction"/>
+    <Label fx:id="errorLabel" layoutX="375" layoutY="500"/>
+
+</Pane>

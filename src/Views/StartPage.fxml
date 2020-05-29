@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.control.Button?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800" prefWidth="800"
+      xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.StartPage"
+      stylesheets="@Style.css" styleClass="backgroundImage">
+    <Button styleClass="MainButtons" text="Sign Up" fx:id="signupButton" onAction="#goToSignup" layoutX="100" layoutY="400"/>
+    <Button styleClass="MainButtons" text="Log In" fx:id="loginButton" onAction="#gotoLogin" layoutX="500" layoutY="400"/>
+</Pane>
