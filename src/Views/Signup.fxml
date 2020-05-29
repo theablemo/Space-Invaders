@@ -16,6 +16,6 @@
     <Text text="Enter Username: "  x="100" y="320" styleClass="infoText"/>
     <Text text="Enter Password: "  x="100" y="420" styleClass="infoText"/>
     <Button text="Submit" styleClass="Buttons" layoutX="600" layoutY="500" onMouseClicked="#signupAction"/>
-    <Label fx:id="errorLabel" layoutX="375" layoutY="500"/>
+    <Label fx:id="errorLabel" layoutX="375" layoutY="500" styleClass="errorLabel"/>
 
 </Pane>

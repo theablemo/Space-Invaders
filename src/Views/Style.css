@@ -29,3 +29,7 @@
     -fx-text-fill: #0F6635;
     -fx-font-size: 30;
 }
+.errorLabel{
+    -fx-text-fill: RED;
+    -fx-font-size: 20;
+}
