@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.Game"
+      prefHeight="800" prefWidth="800" stylesheets="@GameStyle.css" styleClass="background" onKeyTyped="#moveShip">
+    <ImageView fx:id="ship" x="325" y="600" onKeyTyped="#moveShip">
+        <Image url="/Images/spaceShip.png"/>
+    </ImageView>
+</Pane>

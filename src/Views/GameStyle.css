@@ -1,0 +1,7 @@
+.background{
+    -fx-background-image: url("/Images/gameBackground.png");
+    -fx-background-size: 100% 100%;
+}
+.spaceShip{
+
+}

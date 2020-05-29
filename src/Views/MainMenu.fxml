@@ -11,7 +11,7 @@
 <Pane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controllers.MainMenu"
-            prefHeight="400.0" prefWidth="600.0"
+            prefHeight="800" prefWidth="800"
       stylesheets="@Style.css" styleClass="backgroundImage">
     <Label fx:id="welcomeText" layoutX="300" layoutY="150" styleClass="labelInfo"/>
     <Button text="Start Game" layoutX="325" layoutY="300" styleClass="Buttons" onMouseClicked="#startNewGame"/>
