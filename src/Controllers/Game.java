@@ -127,7 +127,7 @@ public class Game implements Initializable {
     public void shipShoot()
     {
         for (ImageView bullet : bullets) {
-            bullet.setY(bullet.getY() - 5);
+            bullet.setY(bullet.getY() - 10);
             for (ImageView enemy : enemies) {
                 if(bullet.intersects(enemy.getBoundsInParent()))
                 {
@@ -246,12 +246,12 @@ public class Game implements Initializable {
     public void moveShip(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.RIGHT)
         {
-            ship.setX(ship.getX() + 10);
+            ship.setX(ship.getX() + 20);
             ship.setSmooth(true);
         }
         if(keyEvent.getCode() == KeyCode.LEFT)
         {
-            ship.setX(ship.getX() - 10);
+            ship.setX(ship.getX() - 20);
             ship.setSmooth(true);
         }
         if(keyEvent.getCode() == KeyCode.SPACE)
