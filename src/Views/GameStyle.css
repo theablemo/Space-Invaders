@@ -10,3 +10,8 @@
 .Buttons:hover{
     -fx-background-color: GREY;
 }
+.scoreLabel{
+    -fx-background-color: none;
+    -fx-font-size: 30;
+    -fx-text-fill: #0F6635;;
+}

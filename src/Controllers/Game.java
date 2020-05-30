@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,6 +32,7 @@ public class Game implements Initializable {
     public ArrayList<ImageView> enemies;
     public ArrayList<ImageView> enemyBullets;
     public ArrayList<ImageView> toRemove;
+    public Label showScore;
     Score score;
     public Button toGetScene;
     public Pane pane;
@@ -108,6 +110,7 @@ public class Game implements Initializable {
     }
 
     public void update() {
+        showScore.setText("Score: " + score.getScore());
         getDownTime += 0.016;
         shootTime += 0.016;
         toRemove.clear();

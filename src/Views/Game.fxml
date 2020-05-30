@@ -17,4 +17,5 @@
     </ImageView>
     <Button fx:id="toGetScene" text="Exit Game" styleClass="Buttons" layoutX="200" layoutY="20" onKeyPressed="#moveShip" onMouseClicked="#exitGame"/>
     <Button text="New Game" styleClass="Buttons" layoutX="400" layoutY="20" onKeyPressed="#moveShip" onMouseClicked="#newGame"/>
+    <Label fx:id="showScore" styleClass="scoreLabel" layoutX="600" layoutY="20"/>
 </Pane>
