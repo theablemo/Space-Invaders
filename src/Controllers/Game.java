@@ -40,6 +40,7 @@ public class Game implements Initializable {
     private double shootTime = 0;
     private KeyEvent event;
     private boolean gotHit;
+    AnimationTimer stopTimer;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gotHit = false;
@@ -57,10 +58,10 @@ public class Game implements Initializable {
             if(i%10 == 0)
             {
                 Random random = new Random();
-                colorAdjust.setHue(random.nextInt(10));
-                colorAdjust.setContrast(random.nextInt(10));
-                colorAdjust.setSaturation(random.nextInt(10));
-                colorAdjust.setBrightness(random.nextInt(10));
+                colorAdjust.setHue(random.nextDouble() * i/30);
+                colorAdjust.setContrast(random.nextDouble() * i/30);
+                colorAdjust.setSaturation(random.nextDouble() * i/30);
+                colorAdjust.setBrightness(random.nextDouble() * i/30);
             }
             Image alien = new Image("/Images/alien.png");
             ImageView iv = new ImageView();
@@ -80,15 +81,17 @@ public class Game implements Initializable {
                     update();
             }
         };
+        stopTimer = timer;
         timer.start();
     }
 
     private void endGame() throws IOException {
-        //Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/GameResult.fxml"));
+        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/GameResult.fxml"));
         //Stage stage = (Stage) toGetScene.getScene().getWindow();
+        stopTimer.stop();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        //Scene scene = new Scene(pane, 800, 800);
-        stage.setScene(MainController.getInstance().getResultScene());
+        Scene scene = new Scene(pane, 800, 800);
+        stage.setScene(scene);
         stage.show();
     }
 
@@ -215,6 +218,7 @@ public class Game implements Initializable {
 
     public void newGame(MouseEvent mouseEvent) throws IOException {
         Score.getAllScores().remove(MainController.getInstance().getGameScore());
+        MainController.getInstance().setGameScore(new Score(MainController.getInstance().getUser(),0));
         Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Game.fxml"));
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(pane, 800, 800);

@@ -36,10 +36,10 @@ public class MainMenu implements Initializable {
     }
 
     public void showScoreBoard(MouseEvent mouseEvent) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/ScoreBoard.fxml"));
+        //Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/ScoreBoard.fxml"));
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(pane, 800, 800);
-        stage.setScene(scene);
+        //Scene scene = new Scene(pane, 800, 800);
+        stage.setScene(MainController.getInstance().getScoreBoardScene());
         stage.show();
     }
 
