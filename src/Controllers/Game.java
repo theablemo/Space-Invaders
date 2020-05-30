@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Difficulty;
+import Models.EndGame;
 import Models.Score;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
@@ -185,9 +186,19 @@ public class Game implements Initializable {
         getDownTime += 0.016;
         shootTime += 0.016;
         toRemove.clear();
+        if(enemies.isEmpty())
+        {
+            try {
+                MainController.getInstance().setEndGame(EndGame.WIN);
+                gotHit = false;
+                endGame();
+            } catch (Exception e){
+            }
+        }
         if(gotHit)
         {
             try {
+                MainController.getInstance().setEndGame(EndGame.LOSE);
                 gotHit = false;
                 endGame();
             } catch (Exception e){
@@ -246,12 +257,12 @@ public class Game implements Initializable {
     public void moveShip(KeyEvent keyEvent) {
         if(keyEvent.getCode() == KeyCode.RIGHT)
         {
-            ship.setX(ship.getX() + 20);
+            ship.setX(ship.getX() + 30);
             ship.setSmooth(true);
         }
         if(keyEvent.getCode() == KeyCode.LEFT)
         {
-            ship.setX(ship.getX() - 20);
+            ship.setX(ship.getX() - 30);
             ship.setSmooth(true);
         }
         if(keyEvent.getCode() == KeyCode.SPACE)

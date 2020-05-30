@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Difficulty;
+import Models.EndGame;
 import Models.Score;
 import Models.User;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,15 @@ public class MainController {
     private boolean inGame = false;
     private Score gameScore;
     private Difficulty difficulty = null;
+    private EndGame endGame = null;
+
+    public void setEndGame(EndGame endGame) {
+        this.endGame = endGame;
+    }
+
+    public EndGame getEndGame() {
+        return endGame;
+    }
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;

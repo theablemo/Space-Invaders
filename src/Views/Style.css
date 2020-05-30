@@ -42,3 +42,6 @@
     -fx-text-fill: #0F6635;
     -fx-font-size: 30;
 }
+.endLabel{
+    -fx-font-size: 40;
+}
