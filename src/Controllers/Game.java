@@ -1,7 +1,6 @@
 package Controllers;
 
 import Models.Score;
-import com.sun.tools.javac.Main;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -18,7 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,6 +39,13 @@ public class Game implements Initializable {
     private KeyEvent event;
     private boolean gotHit;
     AnimationTimer stopTimer;
+
+    Color[] presetColors = new Color[] {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN, Color.BLACK, Color.WHITE};
+    Color targetColor;
+    public static double map(double value, double start, double stop, double targetStart, double targetStop) {
+        return targetStart + (targetStop - targetStart) * ((value - start) / (stop - start));
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         gotHit = false;
@@ -54,14 +59,21 @@ public class Game implements Initializable {
         ship.setFitHeight(90);
         //make enemies
         ColorAdjust colorAdjust = new ColorAdjust();
+        int selectColor = 0;
         for (int i = 0; i < 30 ; i++) {
-            if(i%10 == 0)
+            if((i%10)==0)
             {
-                Random random = new Random();
-                colorAdjust.setHue(random.nextDouble() * i/30);
-                colorAdjust.setContrast(random.nextDouble() * i/30);
-                colorAdjust.setSaturation(random.nextDouble() * i/30);
-                colorAdjust.setBrightness(random.nextDouble() * i/30);
+                colorAdjust = new ColorAdjust();
+                selectColor = (i/10)%8;
+                targetColor = presetColors[selectColor];
+                double hue = map( (targetColor.getHue() + 180) % 360, 0, 360, -1, 1);
+                colorAdjust.setHue(hue);
+
+                double saturation = targetColor.getSaturation();
+                colorAdjust.setSaturation(saturation);
+
+                double brightness = map( targetColor.getBrightness(), 0, 1, -1, 0);
+                colorAdjust.setBrightness(brightness);
             }
             Image alien = new Image("/Images/alien.png");
             ImageView iv = new ImageView();
@@ -164,7 +176,19 @@ public class Game implements Initializable {
             for (ImageView enemy : enemies) {
                 enemy.setY(enemy.getY() + 90);
             }
+            //add new row
+            Random random = new Random();
+            int selectColor = random.nextInt(7);
+            ColorAdjust colorAdjust = new ColorAdjust();
+            targetColor = presetColors[selectColor];
+            double hue = map( (targetColor.getHue() + 180) % 360, 0, 360, -1, 1);
+            colorAdjust.setHue(hue);
+            double saturation = targetColor.getSaturation();
+            colorAdjust.setSaturation(saturation);
+            double brightness = map( targetColor.getBrightness(), 0, 1, -1, 0);
+
             for (int i = 0; i < 10 ; i++) {
+                colorAdjust.setBrightness(brightness);
                 Image alien = new Image("/Images/alien.png");
                 ImageView iv = new ImageView();
                 iv.setImage(alien);
@@ -172,6 +196,7 @@ public class Game implements Initializable {
                 iv.setFitHeight(50);
                 iv.setX(50 + (i%10)*70);
                 iv.setY(100 + (i/10)*90);
+                iv.setEffect(colorAdjust);
                 pane.getChildren().add(iv);
                 enemies.add(iv);
             }
