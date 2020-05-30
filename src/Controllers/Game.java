@@ -18,11 +18,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -132,6 +136,7 @@ public class Game implements Initializable {
             for (ImageView enemy : enemies) {
                 if(bullet.intersects(enemy.getBoundsInParent()))
                 {
+                    musicDestroy();
                     score.setScore(score.getScore()+1);
                     toRemove.add(bullet);
                     toRemove.add(enemy);
@@ -267,6 +272,7 @@ public class Game implements Initializable {
         }
         if(keyEvent.getCode() == KeyCode.SPACE)
         {
+            musicShoot();
             Image fire = new Image("/Images/tir.png");
             ImageView iv = new ImageView();
             iv.setImage(fire);
@@ -279,6 +285,22 @@ public class Game implements Initializable {
         }
         event = keyEvent;
     }
+
+    public void musicShoot() {
+        MediaPlayer mediaPlayer;
+        String s = "src/Musics/gun.mp3";
+        Media h = new Media(Paths.get(s).toUri().toString());
+        mediaPlayer = new MediaPlayer(h);
+        mediaPlayer.play();
+    }
+    public void musicDestroy() {
+        MediaPlayer mediaPlayer;
+        String s = "src/Musics/hit.mp3";
+        Media h = new Media(Paths.get(s).toUri().toString());
+        mediaPlayer = new MediaPlayer(h);
+        mediaPlayer.play();
+    }
+
     public void exitGame(MouseEvent mouseEvent) throws IOException {
         Score.getAllScores().remove(MainController.getInstance().getGameScore());
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
