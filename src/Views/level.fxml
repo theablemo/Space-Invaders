@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.Level"
+            prefHeight="400.0" prefWidth="600.0" stylesheets="@Style.css" styleClass="backgroundImage">
+    <Button text="Easy" styleClass="MainButtons" layoutX="325" layoutY="100" onMouseClicked="#easy"/>
+    <Button text="Medium" styleClass="MainButtons" layoutX="325" layoutY="300" onMouseClicked="#medium"/>
+    <Button text="Hard" styleClass="MainButtons" layoutX="325" layoutY="500" onMouseClicked="#hard"/>
+    <Button text="Back" styleClass="Buttons" layoutX="50" layoutY="50" onMouseClicked="#back"/>
+
+</Pane>

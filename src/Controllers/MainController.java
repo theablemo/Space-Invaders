@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.Difficulty;
 import Models.Score;
 import Models.User;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +14,25 @@ public class MainController {
     private User user = null;
     private boolean inGame = false;
     private Score gameScore;
+    private Difficulty difficulty = null;
 
-    private Scene startScene,loginScene,signupScene,mainMenuScene,gameScene,resultScene,scoreBoardScene;
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    private Scene startScene,loginScene,signupScene,mainMenuScene,gameScene,resultScene,scoreBoardScene,levelScene;
+
+    public Scene getLevelScene() throws IOException {
+        if(levelScene == null){
+            Parent startSceneTemplate = FXMLLoader.load(getClass().getResource("/Views/level.fxml"));
+            levelScene = new Scene(startSceneTemplate, 800, 800);
+        }
+        return levelScene;
+    }
 
     public Scene getStartScene() throws IOException {
         if(startScene == null)

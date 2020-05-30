@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.Difficulty;
 import Models.Score;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
@@ -101,7 +102,6 @@ public class Game implements Initializable {
 
     private void endGame() throws IOException {
         Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/GameResult.fxml"));
-        //Stage stage = (Stage) toGetScene.getScene().getWindow();
         stopTimer.stop();
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(pane, 800, 800);
@@ -109,6 +109,77 @@ public class Game implements Initializable {
         stage.show();
     }
 
+    public void enemyShoot()
+    {
+        int shootinEnemy = (int)(enemies.size()*Math.random());
+        ImageView enemyToShoot = enemies.get(shootinEnemy);
+        Image tir = new Image("/Images/tirReversed.png");
+        ImageView tirEnemy = new ImageView();
+        tirEnemy.setImage(tir);
+        tirEnemy.setFitWidth(15);
+        tirEnemy.setFitHeight(15);
+        tirEnemy.setX(enemyToShoot.getX() + 38);
+        tirEnemy.setY(enemyToShoot.getY() - 30);
+        pane.getChildren().add(tirEnemy);
+        enemyBullets.add(tirEnemy);
+        shootTime = 0;
+    }
+    public void shipShoot()
+    {
+        for (ImageView bullet : bullets) {
+            bullet.setY(bullet.getY() - 5);
+            for (ImageView enemy : enemies) {
+                if(bullet.intersects(enemy.getBoundsInParent()))
+                {
+                    score.setScore(score.getScore()+1);
+                    toRemove.add(bullet);
+                    toRemove.add(enemy);
+                }
+            }
+        }
+    }
+
+    public void enemyBulletMove()
+    {
+        for (ImageView enemyBullet : enemyBullets) {
+            enemyBullet.setY(enemyBullet.getY() + 5);
+            if(enemyBullet.intersects(ship.getBoundsInParent()))
+            {
+                gotHit = true;
+            }
+        }
+    }
+    public void getDownRow()
+    {
+        for (ImageView enemy : enemies) {
+            enemy.setY(enemy.getY() + 90);
+        }
+        //add new row
+        Random random = new Random();
+        int selectColor = random.nextInt(7);
+        ColorAdjust colorAdjust = new ColorAdjust();
+        targetColor = presetColors[selectColor];
+        double hue = map( (targetColor.getHue() + 180) % 360, 0, 360, -1, 1);
+        colorAdjust.setHue(hue);
+        double saturation = targetColor.getSaturation();
+        colorAdjust.setSaturation(saturation);
+        double brightness = map( targetColor.getBrightness(), 0, 1, -1, 0);
+
+        for (int i = 0; i < 10 ; i++) {
+            colorAdjust.setBrightness(brightness);
+            Image alien = new Image("/Images/alien.png");
+            ImageView iv = new ImageView();
+            iv.setImage(alien);
+            iv.setFitWidth(50);
+            iv.setFitHeight(50);
+            iv.setX(50 + (i%10)*70);
+            iv.setY(100 + (i/10)*90);
+            iv.setEffect(colorAdjust);
+            pane.getChildren().add(iv);
+            enemies.add(iv);
+        }
+        getDownTime = 0;
+    }
     public void update() {
         showScore.setText("Score: " + score.getScore());
         getDownTime += 0.016;
@@ -131,80 +202,42 @@ public class Game implements Initializable {
             }
         }
         //shoot enemies
-        if(Math.random() < 0.4 && shootTime > 0.5)
+        if(MainController.getInstance().getDifficulty() == Difficulty.EASY)
         {
-            int shootinEnemy = (int)(enemies.size()*Math.random());
-            ImageView enemyToShoot = enemies.get(shootinEnemy);
-            Image tir = new Image("/Images/tirReversed.png");
-            ImageView tirEnemy = new ImageView();
-            tirEnemy.setImage(tir);
-            tirEnemy.setFitWidth(15);
-            tirEnemy.setFitHeight(15);
-            tirEnemy.setX(enemyToShoot.getX() + 38);
-            tirEnemy.setY(enemyToShoot.getY() - 30);
-            pane.getChildren().add(tirEnemy);
-            enemyBullets.add(tirEnemy);
-            shootTime = 0;
+            if(Math.random() < 0.1 && shootTime > 1.5)
+                enemyShoot();
+        }
+        else if(MainController.getInstance().getDifficulty() == Difficulty.MEDIUM)
+        {
+            if(Math.random() < 0.3 && shootTime > 1)
+                enemyShoot();
+        }
+        else if(MainController.getInstance().getDifficulty() == Difficulty.HARD)
+        {
+            if(Math.random() < 0.7 && shootTime > 0.5)
+                enemyShoot();
         }
         //get the bullet
-        for (ImageView bullet : bullets) {
-            bullet.setY(bullet.getY() - 5);
-            for (ImageView enemy : enemies) {
-                if(bullet.intersects(enemy.getBoundsInParent()))
-                {
-                    score.setScore(score.getScore()+1);
-                    toRemove.add(bullet);
-                    toRemove.add(enemy);
-//                    pane.getChildren().remove(bullet);
-//                    pane.getChildren().remove(enemy);
-//                    bullets.remove(bullet);
-//                    enemies.remove(enemy);
-                }
-            }
-        }
+        shipShoot();
         //get enemy bullets
-        for (ImageView enemyBullet : enemyBullets) {
-            enemyBullet.setY(enemyBullet.getY() + 5);
-            if(enemyBullet.intersects(ship.getBoundsInParent()))
-            {
-                gotHit = true;
-//                pane.getChildren().remove(enemyBullet);
-//                pane.getChildren().remove(ship);
-//                enemyBullets.remove(enemyBullet);
-            }
-        }
+        enemyBulletMove();
         //get down one row enemies
-        if(getDownTime >= 5)
+        if(MainController.getInstance().getDifficulty() == Difficulty.EASY)
         {
-            for (ImageView enemy : enemies) {
-                enemy.setY(enemy.getY() + 90);
-            }
-            //add new row
-            Random random = new Random();
-            int selectColor = random.nextInt(7);
-            ColorAdjust colorAdjust = new ColorAdjust();
-            targetColor = presetColors[selectColor];
-            double hue = map( (targetColor.getHue() + 180) % 360, 0, 360, -1, 1);
-            colorAdjust.setHue(hue);
-            double saturation = targetColor.getSaturation();
-            colorAdjust.setSaturation(saturation);
-            double brightness = map( targetColor.getBrightness(), 0, 1, -1, 0);
-
-            for (int i = 0; i < 10 ; i++) {
-                colorAdjust.setBrightness(brightness);
-                Image alien = new Image("/Images/alien.png");
-                ImageView iv = new ImageView();
-                iv.setImage(alien);
-                iv.setFitWidth(50);
-                iv.setFitHeight(50);
-                iv.setX(50 + (i%10)*70);
-                iv.setY(100 + (i/10)*90);
-                iv.setEffect(colorAdjust);
-                pane.getChildren().add(iv);
-                enemies.add(iv);
-            }
-            getDownTime = 0;
+            if(getDownTime >= 7)
+                getDownRow();
         }
+        else if(MainController.getInstance().getDifficulty() == Difficulty.MEDIUM)
+        {
+            if(getDownTime >= 5)
+                getDownRow();
+        }
+        else if(MainController.getInstance().getDifficulty() == Difficulty.HARD)
+        {
+            if(getDownTime >= 3)
+                getDownRow();
+        }
+        //remove object from pane
         pane.getChildren().removeAll(toRemove);
         bullets.removeAll(toRemove);
         enemies.removeAll(toRemove);
@@ -237,20 +270,15 @@ public class Game implements Initializable {
     }
     public void exitGame(MouseEvent mouseEvent) throws IOException {
         Score.getAllScores().remove(MainController.getInstance().getGameScore());
-        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/MainMenu.fxml"));
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(pane, 800, 800);
-        stage.setScene(scene);
+        stage.setScene(MainController.getInstance().getMainMenuScene());
         stage.show();
     }
 
     public void newGame(MouseEvent mouseEvent) throws IOException {
         Score.getAllScores().remove(MainController.getInstance().getGameScore());
-        MainController.getInstance().setGameScore(new Score(MainController.getInstance().getUser(),0));
-        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Game.fxml"));
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(pane, 800, 800);
-        stage.setScene(scene);
+        stage.setScene(MainController.getInstance().getLevelScene());
         stage.show();
     }
 }
