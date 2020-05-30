@@ -13,7 +13,6 @@ import java.io.IOException;
 public class MainController {
     private static MainController instance = null;
     private User user = null;
-    private boolean inGame = false;
     private Score gameScore;
     private Difficulty difficulty = null;
     private EndGame endGame = null;
@@ -34,7 +33,7 @@ public class MainController {
         return difficulty;
     }
 
-    private Scene startScene,loginScene,signupScene,mainMenuScene,gameScene,resultScene,scoreBoardScene,levelScene;
+    private Scene startScene,loginScene,signupScene,mainMenuScene,levelScene;
 
     public Scene getLevelScene() throws IOException {
         if(levelScene == null){
@@ -80,48 +79,12 @@ public class MainController {
         return mainMenuScene;
     }
 
-    public Scene getGameScene() throws IOException {
-        if(gameScene == null)
-        {
-            Parent pane = FXMLLoader.load(getClass().getResource("/Views/Game.fxml"));
-            gameScene = new Scene(pane, 800, 800);
-        }
-        return gameScene;
-    }
-
-    public Scene getResultScene() throws IOException {
-        if(resultScene == null)
-        {
-            Parent pane = FXMLLoader.load(getClass().getResource("/Views/GameResult.fxml"));
-            resultScene = new Scene(pane, 800, 800);
-        }
-        return resultScene;
-    }
-
-    public Scene getScoreBoardScene() throws IOException {
-        if(scoreBoardScene == null)
-        {
-            Parent pane = FXMLLoader.load(getClass().getResource("/Views/GameResult.fxml"));
-            scoreBoardScene = new Scene(pane, 800, 800);
-        }
-        return scoreBoardScene;
-    }
-
     public void setGameScore(Score gameScore) {
         this.gameScore = gameScore;
     }
 
     public Score getGameScore() {
         return gameScore;
-    }
-
-
-    public void setInGame(boolean inGame) {
-        this.inGame = inGame;
-    }
-
-    public boolean isInGame() {
-        return inGame;
     }
 
     public static MainController getInstance() {
