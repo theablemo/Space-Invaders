@@ -33,3 +33,8 @@
     -fx-text-fill: RED;
     -fx-font-size: 20;
 }
+.scoreList{
+    -fx-background-color: none;
+    -fx-text-fill: #0F6635;
+    -fx-font-size: 30;
+}
