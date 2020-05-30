@@ -29,6 +29,10 @@
     -fx-text-fill: #0F6635;
     -fx-font-size: 30;
 }
+.wellcomeText{
+    -fx-text-fill: #FB6616;
+    -fx-font-size: 40;
+}
 .errorLabel{
     -fx-text-fill: RED;
     -fx-font-size: 20;

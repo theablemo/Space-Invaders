@@ -1,6 +1,11 @@
 import Controllers.MainController;
 import javafx.application.Application;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+
+import java.nio.file.Paths;
 
 public class Main extends Application {
     @Override
