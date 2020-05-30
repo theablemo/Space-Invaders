@@ -1,7 +1,10 @@
 package Controllers;
 
 import Models.User;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -42,7 +45,9 @@ public class SignupPage {
         }
         MainController.getInstance().makeUser(usernameText,passwordText);
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-        stage.setScene(MainController.getInstance().getMainMenuScene());
+        Parent pane = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
+        Scene mainMenuScene = new Scene(pane, 800, 800);
+        stage.setScene(mainMenuScene);
         stage.show();
     }
 
