@@ -65,6 +65,7 @@ public class Settings implements Initializable {
         Parent pane = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
         Scene mainMenuScene = new Scene(pane, 800, 800);
         stage.setScene(mainMenuScene);
+        MainController.getInstance().setMainMenuScene(mainMenuScene);
         stage.show();
     }
 

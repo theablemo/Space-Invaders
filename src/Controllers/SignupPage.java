@@ -41,6 +41,7 @@ public class SignupPage {
             Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
             Parent pane = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
             Scene mainMenuScene = new Scene(pane, 800, 800);
+            MainController.getInstance().setMainMenuScene(mainMenuScene);
             stage.setScene(mainMenuScene);
             stage.show();
         }
