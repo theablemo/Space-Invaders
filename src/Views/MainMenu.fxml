@@ -3,14 +3,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <Pane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controllers.MainMenu"
-            prefHeight="800" prefWidth="800"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.MainMenu"
+      prefHeight="800" prefWidth="800"
       stylesheets="@Style.css" styleClass="backgroundImage">
-    <Label fx:id="welcomeText" layoutX="300" layoutY="150" styleClass="wellcomeText"/>
+    <Label fx:id="welcomeText" layoutX="260" layoutY="150" styleClass="wellcomeText"/>
     <Button text="Start Game" layoutX="325" layoutY="300" styleClass="Buttons" onMouseClicked="#startNewGame"/>
     <Button text="ScoreBoard" layoutX="325" layoutY="450" styleClass="Buttons" onMouseClicked="#showScoreBoard"/>
     <Button text="Sign Out" layoutX="350" layoutY="600" styleClass="Buttons" onMouseClicked="#signout"/>
-
+    <ImageView x="50" y="50" fitHeight="50" fitWidth="50">
+        <Image url="/Images/settings.png"/>
+    </ImageView>
+    <Button prefWidth="50" prefHeight="50" styleClass="Buttons" layoutY="50" layoutX="50" onMouseClicked="#goToSettings"/>
 </Pane>

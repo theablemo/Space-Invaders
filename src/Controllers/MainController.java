@@ -7,6 +7,7 @@ import Models.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 
@@ -16,6 +17,43 @@ public class MainController {
     private Score gameScore;
     private Difficulty difficulty = null;
     private EndGame endGame = null;
+    private double musicVolume = 0.3;
+    private double shootingVolume = 1;
+    private double destroyVolume = 1;
+    private MediaPlayer musicMediaPlayer;
+
+
+    public MediaPlayer getMusicMediaPlayer() {
+        return musicMediaPlayer;
+    }
+
+    public void setMusicMediaPlayer(MediaPlayer musicMediaPlayer) {
+        this.musicMediaPlayer = musicMediaPlayer;
+    }
+
+    public double getDestroyVolume() {
+        return destroyVolume;
+    }
+
+    public double getShootingVolume() {
+        return shootingVolume;
+    }
+
+    public void setDestroyVolume(double destroyVolume) {
+        this.destroyVolume = destroyVolume;
+    }
+
+    public void setShootingVolume(double shootingVolume) {
+        this.shootingVolume = shootingVolume;
+    }
+
+    public void setMusicVolume(double musicVolume) {
+        this.musicVolume = musicVolume;
+    }
+
+    public double getMusicVolume() {
+        return musicVolume;
+    }
 
     public void setEndGame(EndGame endGame) {
         this.endGame = endGame;
@@ -33,7 +71,23 @@ public class MainController {
         return difficulty;
     }
 
-    private Scene startScene,loginScene,signupScene,mainMenuScene,levelScene;
+    private Scene startScene,loginScene,signupScene,mainMenuScene,levelScene,changePassScene,changeUsernameScene;
+
+    public Scene getChangePassScene() throws IOException {
+        if(changePassScene == null){
+            Parent startSceneTemplate = FXMLLoader.load(getClass().getResource("/Views/ChangePassword.fxml"));
+            changePassScene = new Scene(startSceneTemplate, 800, 800);
+        }
+        return changePassScene;
+    }
+
+    public Scene getChangeUsernameScene() throws IOException {
+        if(changeUsernameScene == null){
+            Parent startSceneTemplate = FXMLLoader.load(getClass().getResource("/Views/ChangeUsername.fxml"));
+            changeUsernameScene = new Scene(startSceneTemplate, 800, 800);
+        }
+        return changeUsernameScene;
+    }
 
     public Scene getLevelScene() throws IOException {
         if(levelScene == null){
@@ -77,6 +131,10 @@ public class MainController {
             mainMenuScene = new Scene(pane, 800, 800);
         }
         return mainMenuScene;
+    }
+
+    public void setMainMenuScene(Scene mainMenuScene) {
+        this.mainMenuScene = mainMenuScene;
     }
 
     public void setGameScore(Score gameScore) {

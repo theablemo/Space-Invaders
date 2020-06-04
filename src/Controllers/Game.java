@@ -292,6 +292,7 @@ public class Game implements Initializable {
         Media h = new Media(Paths.get(s).toUri().toString());
         mediaPlayer = new MediaPlayer(h);
         mediaPlayer.play();
+        mediaPlayer.setVolume(MainController.getInstance().getShootingVolume());
     }
     public void musicDestroy() {
         MediaPlayer mediaPlayer;
@@ -299,6 +300,7 @@ public class Game implements Initializable {
         Media h = new Media(Paths.get(s).toUri().toString());
         mediaPlayer = new MediaPlayer(h);
         mediaPlayer.play();
+        mediaPlayer.setVolume(MainController.getInstance().getDestroyVolume());
     }
 
     public void exitGame(MouseEvent mouseEvent) throws IOException {

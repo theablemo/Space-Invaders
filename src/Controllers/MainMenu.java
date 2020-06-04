@@ -40,4 +40,12 @@ public class MainMenu implements Initializable {
         stage.setScene(MainController.getInstance().getStartScene());
         stage.show();
     }
+
+    public void goToSettings(MouseEvent mouseEvent) throws IOException {
+        Parent pane = FXMLLoader.load(getClass().getClassLoader().getResource("Views/Settings.fxml"));
+        Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(pane, 800, 800);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

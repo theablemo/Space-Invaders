@@ -15,6 +15,7 @@ public class Main extends Application {
         primaryStage.setScene(MainController.getInstance().getStartScene());
         primaryStage.show();
     }
+
     MediaPlayer mediaPlayer;
     public void music() {
         String s = "src/Musics/back.mp3";
@@ -26,9 +27,9 @@ public class Main extends Application {
                 mediaPlayer.seek(Duration.ZERO);
             }
         });
-        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setVolume(MainController.getInstance().getMusicVolume());
+        MainController.getInstance().setMusicMediaPlayer(mediaPlayer);
     }
-
 
     public static void main(String[] args) {
         launch(args);

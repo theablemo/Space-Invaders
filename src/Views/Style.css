@@ -45,3 +45,19 @@
 .endLabel{
     -fx-font-size: 40;
 }
+.settingLabels{
+    -fx-font-size: 25;
+    -fx-text-fill: #0F6635;
+}
+.settingInfos{
+    -fx-font-size: 20;
+    -fx-text-fill: #abf0e9;
+}
+.settingButtons{
+    -fx-font-size: 15;
+    -fx-text-fill: #de7119;
+    -fx-background-color: none;
+}
+.settingButtons:hover{
+    -fx-background-color: GREY;
+}

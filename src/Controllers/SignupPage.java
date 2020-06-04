@@ -25,33 +25,33 @@ public class SignupPage {
         if(usernameText.equals(""))
         {
             errorLabel.setText("Choose a username");
-            username.clear();
-            password.clear();
-            throw new Exception();
         }
         if(passwordText.equals(""))
         {
             errorLabel.setText("Choose a password");
-            username.clear();
-            password.clear();
-            throw new Exception();
         }
         if(User.userExists(usernameText))
         {
             errorLabel.setText("This username Exists!");
-            username.clear();
-            password.clear();
-            throw new Exception();
         }
-        MainController.getInstance().makeUser(usernameText,passwordText);
-        Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-        Parent pane = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
-        Scene mainMenuScene = new Scene(pane, 800, 800);
-        stage.setScene(mainMenuScene);
-        stage.show();
+        else
+        {
+            MainController.getInstance().makeUser(usernameText,passwordText);
+            errorLabel.setText("");
+            Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+            Parent pane = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
+            Scene mainMenuScene = new Scene(pane, 800, 800);
+            stage.setScene(mainMenuScene);
+            stage.show();
+        }
+        username.clear();
+        password.clear();
     }
 
     public void goBack(MouseEvent mouseEvent) throws IOException {
+        username.clear();
+        password.clear();
+        errorLabel.setText("");
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
         stage.setScene(MainController.getInstance().getStartScene());
         stage.show();

@@ -13,6 +13,16 @@ public class User {
         allUsers.put(username,this);
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        allUsers.remove(this.username);
+        allUsers.put(username,this);
+        this.username = username;
+    }
+
     public static HashMap<String, User> getAllUsers() {
         return allUsers;
     }

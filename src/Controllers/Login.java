@@ -23,38 +23,39 @@ public class Login {
         if(usernameText.equals(""))
         {
             errorLabel.setText("Enter a username");
-            username.clear();
-            password.clear();
-            throw new Exception();
         }
         if(passwordText.equals(""))
         {
             errorLabel.setText("Enter a password");
-            username.clear();
-            password.clear();
-            throw new Exception();
         }
         if(!User.userExists(usernameText))
         {
             errorLabel.setText("This username does not exist!");
-            username.clear();
-            password.clear();
-            throw new Exception();
         }
-        try {
-            MainController.getInstance().login(usernameText,passwordText);
-            Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-            Parent pane = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
-            Scene mainMenuScene = new Scene(pane, 800, 800);
-            stage.setScene(mainMenuScene);
-            stage.show();
-        }catch (Exception e)
+        else
         {
-            errorLabel.setText(e.getMessage());
+            try {
+                MainController.getInstance().login(usernameText,passwordText);
+                errorLabel.setText("");
+                Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+                Parent pane = FXMLLoader.load(getClass().getResource("/Views/MainMenu.fxml"));
+                Scene mainMenuScene = new Scene(pane, 800, 800);
+                MainController.getInstance().setMainMenuScene(mainMenuScene);
+                stage.setScene(mainMenuScene);
+                stage.show();
+            }catch (Exception e)
+            {
+                errorLabel.setText(e.getMessage());
+            }
         }
+        username.clear();
+        password.clear();
     }
 
     public void goBack(MouseEvent mouseEvent) throws IOException {
+        username.clear();
+        password.clear();
+        errorLabel.setText("");
         Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
         stage.setScene(MainController.getInstance().getStartScene());
         stage.show();
