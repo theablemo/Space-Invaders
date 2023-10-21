@@ -17,11 +17,31 @@ If you use Intellij Idea to open this project, it is good to take note of the fo
 - By going to
 >Run >> Edit Configurations
 
-and selecting `Modify options`, you can add VM Options. Add the following VM Optionn:
+and selecting `Modify options`, you can add VM Options. Add the following VM Options:
 > --module-path "\path\to\javafx-sdk-17\lib" --add-modules javafx.controls,javafx.fxml,javafx.media
 
-Change the `\path\to\javafx-sdk-17\lib` with you local JavaFX path.
+Change the `\path\to\javafx-sdk-17\lib` with your local JavaFX path.
 
 
 # Demo
-Following are some screenshots of the gameplay:
+Following are some screenshots of the game pages:
+
+**Signup**
+![Signup](<Images/Signup.png>)
+
+**Main menu**
+![Main menu](<Images/Mainmenu.png>)
+
+**Settings**
+![Settings](<Images/Settings.png>)
+
+**Choosing Difficulty before starting a new game**
+![Choosing difficulty](<Images/Difficulty.png>)
+
+**The main gameplay**
+![Game](<Images/Game.png>)
+
+
+**Scoreboard**
+![Scoreboard](<Images/Scoreboard.png>)
+
